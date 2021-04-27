@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">mreport_app</string>
+    <string name="bottom_navigation_connexion">Connexion</string>
+    <string name="bottom_navigation_reports">Rapports</string>
+</resources>
