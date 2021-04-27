@@ -1,5 +1,4 @@
-{
-  "reports": [
+[
     {
       "dataviz": [
         {
@@ -343,6 +342,4 @@
       "report": "hannah",
       "title": "hannah"
     }
-  ],
-  "response": "success"
-}
+  ]
