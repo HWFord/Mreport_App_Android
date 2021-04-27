@@ -44,8 +44,8 @@ public class SecondActivity extends Activity {
         tvSecondUrl = findViewById(R.id.tvSecondUrl);
 
 
-//        adapter = new RapportListAdapter(this, rapportsArray);
-//        lvSecondReportList.setAdapter(adapter);
+        adapter = new RapportListAdapter(this, rapportsArray);
+        lvSecondReportList.setAdapter(adapter);
 //
         SharedPreferences preferences = getSharedPreferences("url",0);
         url = preferences.getString("url", "");
