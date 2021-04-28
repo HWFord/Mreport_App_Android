@@ -23,17 +23,6 @@
             android:background="@color/white"
             android:elevation="3dp"
             />
-        <TextView
-            android:id="@+id/tvSecondUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="http://localhost/api/report"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:background="@color/white"
-            android:elevation="3dp"
-            />
         <ListView
             android:id="@+id/lvSecondReportList"
             android:layout_width="match_parent"
