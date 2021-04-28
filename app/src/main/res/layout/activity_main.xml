@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
+    android:gravity="top"
     android:background="@color/background_grey">
 
 
@@ -67,28 +67,5 @@
 
 
     </LinearLayout>
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:layout_weight="10"-->
-<!--        android:gravity="center">-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnSecondConnexion"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:enabled="false"-->
-<!--            android:text="Connexion"/>-->
-<!--        <Button-->
-<!--            android:id="@+id/btnSecondRapports"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Rapports"/>-->
-
-<!--    </LinearLayout>-->
-
 
 </LinearLayout>
