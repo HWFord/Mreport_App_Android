@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="top"
+    android:background="@color/background_grey">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="top">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Mreport"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:elevation="3dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Connexion"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:paddingBottom="5dp"
+            android:textSize="15sp"
+            android:textColor="@color/grey_primary"
+            android:text="API URL:"
+            />
+        <TextView
+            android:id="@+id/tvThirdUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="http://mreport/api"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:paddingBottom="5dp"
+            android:textSize="15sp"
+            android:textColor="@color/grey_primary"
+            android:text="Etat de la connexion"
+            />
+        <TextView
+            android:id="@+id/tvThirdStateCo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="15dp"
+            android:textSize="15sp"
+            android:textFontWeight="800"
+            android:textColor="#08951F"
+            android:text="Connexion réussi"
+            />
+        <Button
+            android:id="@+id/btnThirdStartMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:text="Changer l'URL"
+            android:textColor="@color/white"
+            android:background="@color/turquoise_primary"
+
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnThirdConnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="Connexion"/>
+        <Button
+            android:id="@+id/btnThirdRapports"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Rapports"/>
+
+    </LinearLayout>
+
+</LinearLayout>
