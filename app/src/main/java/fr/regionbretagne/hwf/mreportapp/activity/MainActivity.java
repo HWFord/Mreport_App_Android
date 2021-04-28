@@ -23,7 +23,8 @@ public class MainActivity extends Activity {
     private Button btnSecondConnexion;
     private Button btnSecondRapports;
 
-    private Intent intent;
+    private Intent intent2;
+    private Intent intent3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +39,8 @@ public class MainActivity extends Activity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("url", 0);
         SharedPreferences.Editor editor = pref.edit();
 
-        intent = new Intent( MainActivity.this, SecondActivity.class);
+        intent2 = new Intent( MainActivity.this, SecondActivity.class);
+        intent3 = new Intent( MainActivity.this, ThirdActivity.class);
 
         etMainUrl.addTextChangedListener(new TextWatcher() {
             @Override
@@ -61,10 +63,9 @@ public class MainActivity extends Activity {
                     btnMainGetApi.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            sendUrlToSecondActivity();
                             editor.putString("url", etMainUrl.getText().toString());
                             editor.commit();
-                            openSecondActivity();
+                            openThirdActivity();
                             finish();
                         }
                     });
@@ -75,14 +76,11 @@ public class MainActivity extends Activity {
 
      }
 
-    public void sendUrlToSecondActivity(){
-        Editable url = etMainUrl.getText();
-        intent.putExtra("url",url);
-        startActivity(intent);
-    }
-
     public void openSecondActivity(){
-        startActivity(intent);
+        startActivity(intent2);
     }
 
+    public void openThirdActivity(){
+        startActivity(intent3);
+    }
 }
