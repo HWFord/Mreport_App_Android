@@ -4,25 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Rapport implements Serializable {
-    private String id;
+    private String report;
     private String title;
     private ArrayList<Dataviz> dataviz;
 
     public Rapport() {
     }
 
-    public Rapport(String id, String title, ArrayList<Dataviz> dataviz) {
-        this.id = id;
+    public Rapport(String report, String title, ArrayList<Dataviz> dataviz) {
+        this.report = report;
         this.title = title;
         this.dataviz = dataviz;
     }
 
     public String getId() {
-        return id;
+        return report;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.report = report;
     }
 
     public String getTitle() {
@@ -44,9 +44,9 @@ public class Rapport implements Serializable {
     @Override
     public String toString() {
         return "Rapport{" +
-                "id='" + id + '\'' +
+                "id='" + report + '\'' +
                 ", title='" + title + '\'' +
-                ", dataviz=" + dataviz +
+                ", dataviz=" + dataviz.toString() +
                 '}';
     }
 }
