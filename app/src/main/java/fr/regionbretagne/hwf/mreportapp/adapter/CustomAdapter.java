@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import fr.regionbretagne.hwf.mreportapp.R;
 import fr.regionbretagne.hwf.mreportapp.model.Rapport;
 
-public class JsonAdapter extends BaseAdapter {
+public class CustomAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Rapport> arrayList;
 
-    public JsonAdapter(Context context, ArrayList<Rapport> arrayList) {
+    public CustomAdapter(Context context, ArrayList<Rapport> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
