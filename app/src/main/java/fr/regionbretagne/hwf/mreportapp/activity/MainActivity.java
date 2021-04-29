@@ -17,11 +17,8 @@ import fr.regionbretagne.hwf.mreportapp.R;
 
 public class MainActivity extends Activity {
 
-
     private EditText etMainUrl;
     private Button btnMainGetApi;
-    private Button btnSecondConnexion;
-    private Button btnSecondRapports;
 
     private Intent intent2;
     private Intent intent3;
@@ -33,8 +30,6 @@ public class MainActivity extends Activity {
 
         etMainUrl = findViewById(R.id.etMainUrl);
         btnMainGetApi = findViewById(R.id.btnMainGetApi);
-        btnSecondConnexion = findViewById(R.id.btnSecondConnexion);
-        btnSecondRapports = findViewById(R.id.btnSecondRapports);
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("url", 0);
         SharedPreferences.Editor editor = pref.edit();
@@ -64,16 +59,14 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             editor.putString("url", etMainUrl.getText().toString());
-                            editor.commit();
+                            editor.apply();
                             openThirdActivity();
                             finish();
                         }
                     });
                 }
             }
-
         });
-
      }
 
     public void openSecondActivity(){
