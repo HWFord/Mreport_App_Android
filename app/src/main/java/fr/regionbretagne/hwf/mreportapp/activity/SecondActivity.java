@@ -4,27 +4,23 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.regionbretagne.hwf.mreportapp.R;
-import fr.regionbretagne.hwf.mreportapp.Utils.Utils;
-import fr.regionbretagne.hwf.mreportapp.adapter.RapportListAdapter;
+import fr.regionbretagne.hwf.mreportapp.adapter.CustomAdapter;
 import fr.regionbretagne.hwf.mreportapp.model.Rapport;
 
 public class SecondActivity extends Activity {
@@ -34,53 +30,54 @@ public class SecondActivity extends Activity {
     private ListView lvSecondReportList;
     private Button btnSecondConnexion;
     private Button btnSecondRapports;
-    private TextView tvSecondUrl;
-    private TextView tvSecondjson;
 
     private String url ="";
 
-    private ArrayList<Rapport> rapportsArray = new ArrayList<>();
+    private ArrayList<Rapport> arrayList ;
 
     private Intent intent;
-    public static ArrayAdapter<Rapport> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        lvSecondReportList = findViewById(R.id.lvSecondReportList);
+        lvSecondReportList = (ListView) findViewById(R.id.lvSecondReportList);
         btnSecondConnexion = findViewById(R.id.btnSecondConnexion);
         btnSecondRapports = findViewById(R.id.btnSecondRapports);
-        tvSecondUrl = findViewById(R.id.tvSecondUrl);
-        tvSecondjson = findViewById(R.id.tvSecondjson);
 
-        String jsonFileString = Utils.getJsonFromAssets(getApplicationContext(), "jsonrapport.json");
-        Log.d("RapportListTag", jsonFileString);
+        arrayList = new ArrayList<>();
 
-        Gson gson = new Gson();
-        Type listRapportType = new TypeToken<List<Rapport>>() { }.getType();
+        try {
+            JSONObject object = new JSONObject(readJSON());
+            JSONArray array = object.getJSONArray("data");
+            //JSONArray array = new JSONArray("data");
+            Log.d("RapportListTag", array.toString() );
+            for (int i = 0; i < array.length(); i++) {
 
-        List<Rapport> rapports = gson.fromJson(jsonFileString, listRapportType);
-        for(int i =0; i< rapports.size(); i++){
-            Log.d("RapportListTag", "> Item " + i + "\n" + rapports.get(i));
+                JSONObject jsonObject = array.getJSONObject(i);
+                Log.d("RapportListTag", jsonObject.toString() );
+
+                String report = jsonObject.getString("report");
+                Log.d("RapportListTag", report );
+
+                String title = jsonObject.getString("title");
+                Log.d("RapportListTag", title );
+
+                Rapport model = new Rapport();
+                model.setId(report);
+                model.setTitle(title);
+                arrayList.add(model);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-
-
-
-
-        adapter = new RapportListAdapter(this, rapportsArray);
+        CustomAdapter adapter = new CustomAdapter(this, arrayList);
         lvSecondReportList.setAdapter(adapter);
+
 
         SharedPreferences preferences = getSharedPreferences("url",0);
         url = preferences.getString("url", "");
-
-        tvSecondUrl.setText(url);
-//        Bundle bundle = getIntent().getExtras();
-//        if(bundle != null){
-//            String url = bundle.getString("url");
-//        }
 
         intent = new Intent( SecondActivity.this, ThirdActivity.class);
 
@@ -97,19 +94,23 @@ public class SecondActivity extends Activity {
         startActivity(intent);
     }
 
-//    public String loadJSONFromAsset() {
-//        String json = null;
-//        try {
-//            InputStream is = getActivity().getAssets().open("yourfilename.json");
-//            int size = is.available();
-//            byte[] buffer = new byte[size];
-//            is.read(buffer);
-//            is.close();
-//            json = new String(buffer, "UTF-8");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//            return null;
-//        }
-//        return json;
-//    }
+    public String readJSON() {
+        String json = "";
+        try {
+            // Opening data.json file
+            InputStream inputStream = getAssets().open("data.json");
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            // read values in the byte array
+            inputStream.read(buffer);
+            inputStream.close();
+            // convert byte to string
+            json = new String(buffer, "UTF-8");
+            Log.d("RapportListTag", json );
+        } catch (IOException e) {
+            e.printStackTrace();
+            return json;
+        }
+        return json;
+    }
 }
