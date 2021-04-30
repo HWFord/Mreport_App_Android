@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:paddingBottom="5dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="@color/grey_primary"
             android:text="API URL:"
             />
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:text="http://mreport/api"
             />
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:paddingBottom="5dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textColor="@color/grey_primary"
             android:text="Etat de la connexion"
             />
@@ -62,10 +62,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textFontWeight="800"
-            android:textColor="#08951F"
-            android:text="Connexion réussi"
+            android:textColor="@color/grey_primary"
+            android:text="Etat de la connexion inconnu"
             />
         <Button
             android:id="@+id/btnThirdStartMain"
