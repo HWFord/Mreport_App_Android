@@ -1,6 +1,5 @@
 package fr.regionbretagne.hwf.mreportapp.handler;
 
-import android.content.Intent;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -13,8 +12,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import fr.regionbretagne.hwf.mreportapp.activity.MainActivity;
-import fr.regionbretagne.hwf.mreportapp.activity.ThirdActivity;
 
 public class HttpHandler {
 
