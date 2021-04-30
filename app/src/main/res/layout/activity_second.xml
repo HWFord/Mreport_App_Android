@@ -7,6 +7,7 @@
     android:background="@color/background_grey">
 
     <LinearLayout
+        android:id="@+id/llSecondRapportBlock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -28,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="15dp"
             />
     </LinearLayout>
 
