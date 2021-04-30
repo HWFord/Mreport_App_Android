@@ -3,12 +3,15 @@ package fr.regionbretagne.hwf.mreportapp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 import fr.regionbretagne.hwf.mreportapp.R;
 
@@ -17,6 +20,9 @@ public class ThirdActivity extends Activity {
     private Button btnThirdStartMain;
     private Button btnThirdRapports;
     private TextView tvThirdUrl;
+    private TextView tvThirdStateCo;
+
+    private ArrayList reports;
 
     private Intent intentMain;
     private Intent intentSecond;
@@ -29,11 +35,18 @@ public class ThirdActivity extends Activity {
         btnThirdStartMain = findViewById(R.id.btnThirdStartMain);
         btnThirdRapports = findViewById(R.id.btnThirdRapports);
         tvThirdUrl = findViewById(R.id.tvThirdUrl);
+        tvThirdStateCo = findViewById(R.id.tvThirdStateCo);
 
-        intentMain = new Intent( ThirdActivity.this, MainActivity.class);
+        SharedPreferences preferencesJson = getSharedPreferences("response",0);
 
-        SharedPreferences preferences = getSharedPreferences("url",0);
-        tvThirdUrl.setText(preferences.getString("url", ""));
+        String jsonStr = preferencesJson.getString("response", "");
+        if(jsonStr!= null) {
+            tvThirdStateCo.setText("Connexion réussi");
+            tvThirdStateCo.setTextColor(Color.parseColor("#9FB935"));
+        }else{
+            tvThirdStateCo.setText("Echec de connexion, vérifier l'url ");
+            tvThirdStateCo.setTextColor(Color.parseColor("#B0252E"));
+        }
 
         btnThirdStartMain.setOnClickListener(new View.OnClickListener() {
             @Override
