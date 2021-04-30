@@ -3,6 +3,7 @@ package fr.regionbretagne.hwf.mreportapp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,29 +49,30 @@ public class SecondActivity extends Activity {
 
         arrayList = new ArrayList<>();
 
-        try {
-            JSONObject object = new JSONObject(readJSON());
-            JSONArray array = object.getJSONArray("data");
-            //JSONArray array = new JSONArray("data");
-            Log.d("RapportListTag", array.toString() );
-            for (int i = 0; i < array.length(); i++) {
+        SharedPreferences preferencesJson = getSharedPreferences("response",0);
+        String jsonStr = preferencesJson.getString("response", "");
+        if(jsonStr!= null) {
 
-                JSONObject jsonObject = array.getJSONObject(i);
-                Log.d("RapportListTag", jsonObject.toString() );
+            try {
+                JSONObject object = new JSONObject(jsonStr);
+                JSONArray array = object.getJSONArray("reports");
 
-                String report = jsonObject.getString("report");
-                Log.d("RapportListTag", report );
+                for (int i = 0; i < array.length(); i++) {
 
-                String title = jsonObject.getString("title");
-                Log.d("RapportListTag", title );
+                    JSONObject jsonObject = array.getJSONObject(i);
 
-                Rapport model = new Rapport();
-                model.setId(report);
-                model.setTitle(title);
-                arrayList.add(model);
+                    String report = jsonObject.getString("report");
+
+                    String title = jsonObject.getString("title");
+
+                    Rapport model = new Rapport();
+                    model.setId(report);
+                    model.setTitle(title);
+                    arrayList.add(model);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
         CustomAdapter adapter = new CustomAdapter(this, arrayList);
         lvSecondReportList.setAdapter(adapter);
@@ -85,7 +87,7 @@ public class SecondActivity extends Activity {
             @Override
             public void onClick(View v) {
                 openThirdActivity();
-                //finish();
+                finish();
             }
         });
     }
@@ -94,23 +96,4 @@ public class SecondActivity extends Activity {
         startActivity(intent);
     }
 
-    public String readJSON() {
-        String json = "";
-        try {
-            // Opening data.json file
-            InputStream inputStream = getAssets().open("data.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            // read values in the byte array
-            inputStream.read(buffer);
-            inputStream.close();
-            // convert byte to string
-            json = new String(buffer, "UTF-8");
-            Log.d("RapportListTag", json );
-        } catch (IOException e) {
-            e.printStackTrace();
-            return json;
-        }
-        return json;
-    }
 }
