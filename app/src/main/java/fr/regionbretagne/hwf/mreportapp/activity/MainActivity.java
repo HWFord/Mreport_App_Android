@@ -4,16 +4,28 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import fr.regionbretagne.hwf.mreportapp.R;
+import fr.regionbretagne.hwf.mreportapp.handler.HttpHandler;
+
 
 public class MainActivity extends Activity {
 
@@ -23,6 +35,8 @@ public class MainActivity extends Activity {
     private Intent intent2;
     private Intent intent3;
 
+    ArrayList<HashMap<String, String>> reportList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +44,9 @@ public class MainActivity extends Activity {
 
         etMainUrl = findViewById(R.id.etMainUrl);
         btnMainGetApi = findViewById(R.id.btnMainGetApi);
+
+        reportList = new ArrayList<>();
+
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("url", 0);
         SharedPreferences.Editor editor = pref.edit();
@@ -48,6 +65,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 if (s.toString().isEmpty()){
                     btnMainGetApi.setEnabled(false);
                     btnMainGetApi.setBackgroundColor(Color.parseColor("#bbbbbb"));
@@ -59,8 +77,19 @@ public class MainActivity extends Activity {
                         @Override
                         public void onClick(View v) {
                             editor.putString("url", etMainUrl.getText().toString());
+                            editor.putString("urlApiReport", (etMainUrl.getText().toString()+"/api/report/"));
                             editor.apply();
-                            openThirdActivity();
+
+                            new GetReports().execute();
+
+                            SharedPreferences preferencesJson = getSharedPreferences("response",0);
+                            String jsonStr = preferencesJson.getString("response", "");
+                            if(jsonStr!= null) {
+                                openSecondActivity();
+                            }else{
+                                openThirdActivity();
+                            }
+
                             finish();
                         }
                     });
@@ -76,4 +105,47 @@ public class MainActivity extends Activity {
     public void openThirdActivity(){
         startActivity(intent3);
     }
+
+    private class GetReports extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            Toast.makeText(MainActivity.this,"Récuperation des données",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+
+            SharedPreferences preferences = getSharedPreferences("urlApiReport", 0);
+            String url = preferences.getString("urlApiReport", "");
+            Log.d("RapportListTag", url );
+
+            String jsonStr = sh.makeServiceCall(url);
+
+            SharedPreferences pref = getApplicationContext().getSharedPreferences("response", 0);
+            SharedPreferences.Editor editor = pref.edit();
+
+
+            //Log.e("RapportListTag", "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                editor.putString("response", jsonStr);
+                editor.apply();
+            } else {
+                Log.e("RapportListTag", "Impossible de récuperer les données du serveur");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Impossible de récuperer les données du serveur. Vérifier votre URL.",
+                                Toast.LENGTH_LONG).show();
+                        intent3.putExtra("erreur",  true);
+                    }
+                });
+            }
+            return null;
+        }
+
+    }
+
 }
