@@ -16,16 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.regionbretagne.hwf.mreportapp.R;
 import fr.regionbretagne.hwf.mreportapp.handler.HttpHandler;
-
 
 public class MainActivity extends Activity {
 
@@ -126,8 +121,6 @@ public class MainActivity extends Activity {
             SharedPreferences pref = getApplicationContext().getSharedPreferences("response", 0);
             SharedPreferences.Editor editor = pref.edit();
 
-
-            //Log.e("RapportListTag", "Response from url: " + jsonStr);
             if (jsonStr != null) {
                 editor.putString("response", jsonStr);
                 editor.apply();

@@ -1,5 +1,6 @@
 package fr.regionbretagne.hwf.mreportapp.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +28,7 @@ public class ThirdActivity extends Activity {
     private Intent intentMain;
     private Intent intentSecond;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

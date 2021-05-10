@@ -77,7 +77,6 @@ public class SecondActivity extends Activity {
         CustomAdapter adapter = new CustomAdapter(this, arrayList);
         lvSecondReportList.setAdapter(adapter);
 
-
         SharedPreferences preferences = getSharedPreferences("url",0);
         url = preferences.getString("url", "");
 

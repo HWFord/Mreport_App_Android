@@ -45,7 +45,6 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        Rapport rapport = getItem(position);
         if (convertView ==  null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_rapport, parent, false);
         }
@@ -68,15 +67,10 @@ public class CustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                        //add condition for slash
                         Uri.parse(url + "mreport/" + reportId));
                 context.startActivity(browserIntent);
             }
         });
-
-//        if(position%2 ==0){
-//            llSecondRapportBlock.setBackgroundColor(Color.parseColor("#ffffff"));
-//        }
 
         return convertView;
     }
